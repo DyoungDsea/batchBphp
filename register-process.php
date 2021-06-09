@@ -26,7 +26,12 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
         $username = $_POST['username']; 
         $exp = explode(" ", $username);
-        $username = $exp[0].$exp[1];
+        $username = $exp[0].@$exp[1];
+
+        $sql = $conn->query("SELECT * FROM dlogin WHERE dusername='$username'");
+        if($sql->num_rows>0){
+            $errusername = "Username already taken!";
+        }
     }
 
     if(empty($_POST['phone'])){
@@ -82,9 +87,16 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         empty($errpass) && empty($errcpass)
         ){
             $pass = md5($pass);
-            // $pass = password_hash($pass, PASSWORD_BCRYPT);
-            // password_verify()
+            $userid = date("Ymdhis").rand(40500, 98000);
             //run your query here
+            $sql = $conn->query("INSERT INTO dlogin SET userid='$userid', fname='$fname', lname='$lname', dusername='$username', dphone='$phone', demail='$email', ddob='$dob', dgender='$gender', daddress='$address', dpass='$pass'  ");
+
+            if($sql){
+                echo "<h2>Success!</h2>";
+            }else{
+                echo "<h2>Fail!</h2>";
+
+            }
         }
 
 
@@ -93,10 +105,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 
 function cleanInput($data){
+    GLOBAL $conn;
     $data = trim($data);
     $data = strip_tags($data);
     $data = htmlspecialchars($data);
     $data = htmlentities($data);
-    // $date = $conn->real_escape_string($data);
+    $data = $conn->real_escape_string($data);
     return $data;
 }

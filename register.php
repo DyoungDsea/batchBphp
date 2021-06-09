@@ -3,7 +3,7 @@
 session_start();
 
 // echo md5("admin");
-
+require 'config.php';
 
 if(isset($_POST['register'])){
     require 'register-process.php';
@@ -27,22 +27,27 @@ if(isset($_POST['register'])){
     <form action="register.php" method="post" class="mt-5">
         <div class="form-group">
             <input type="text" name="fname" placeholder="Firstname" class="form-control">
+            <span class="text-danger"> <?php if(isset($errFname)) echo $errFname; ?> </span>
         </div>
 
         <div class="form-group">
             <input type="text" name="lname" placeholder="Lastname" class="form-control">
+            <span class="text-danger"> <?php if(isset($errLname)) echo $errLname; ?> </span>
         </div>
 
         <div class="form-group">
             <input type="text" name="username" placeholder="Username" class="form-control">
+            <span class="text-danger"> <?php if(isset($errusername)) echo $errusername; ?> </span>
         </div>
 
         <div class="form-group">
             <input type="text" name="phone" placeholder="Phone No" class="form-control">
+            <span class="text-danger"> <?php if(isset($errphone)) echo $errphone; ?> </span>
         </div>
 
         <div class="form-group">
             <input type="email" name="email" placeholder="Email" class="form-control">
+            <span class="text-danger"> <?php if(isset($erremail)) echo $erremail; ?> </span>
         </div>
 
         <div class="form-group row">
@@ -99,14 +104,17 @@ if(isset($_POST['register'])){
 
         <div class="form-group">
             <textarea name="address" id="" cols="30" placeholder="Address" class="form-control"></textarea>
+            <span class="text-danger"> <?php if(isset($erraddress)) echo $erraddress; ?> </span>
         </div>
 
         <div class="form-group">
             <input type="password" name="pass" placeholder="Password" class="form-control">
+            <span class="text-danger"> <?php if(isset($errpass)) echo $errpass; ?> </span>
         </div>
 
         <div class="form-group">
             <input type="password" name="cpass" placeholder="Confirm Password" class="form-control">
+            <span class="text-danger"> <?php if(isset($errcpass)) echo $errcpass; ?> </span>
         </div>
 
         <button type="submit" name="register" class="btn btn-primary btn-block">Save Form</button>

@@ -4,10 +4,10 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 
 
     //validate firstname
-    if(empty($_POST['fname'])){
+    if(empty(postMethod('fname'))){
         $errFname = "Firstname is required!";
     }else{
-        $fname = cleanInput($_POST['fname']);
+        $fname = cleanInput(postMethod('fname'));
     }
 
     if(empty($_POST['lname'])){
@@ -80,6 +80,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         }
     }
 
+ 
 
     if( empty($errFname) && empty($errLname) && 
         empty($errusername) && empty($errphone) &&
@@ -89,7 +90,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
             $pass = md5($pass);
             $userid = date("Ymdhis").rand(40500, 98000);
             //run your query here
-            $sql = $conn->query("INSERT INTO dlogin SET userid='$userid', fname='$fname', lname='$lname', dusername='$username', dphone='$phone', demail='$email', ddob='$dob', dgender='$gender', daddress='$address', dpass='$pass'  ");
+            $sql = formQuery("INSERT INTO dlogin SET userid='$userid', fname='$fname', lname='$lname', dusername='$username', dphone='$phone', demail='$email', ddob='$dob', dgender='$gender', daddress='$address', dpass='$pass'  ");
+
+          
 
             if($sql){
                 echo "<h2>Success!</h2>";
@@ -104,12 +107,6 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 }
 
 
-function cleanInput($data){
-    GLOBAL $conn;
-    $data = trim($data);
-    $data = strip_tags($data);
-    $data = htmlspecialchars($data);
-    $data = htmlentities($data);
-    $data = $conn->real_escape_string($data);
-    return $data;
-}
+
+
+

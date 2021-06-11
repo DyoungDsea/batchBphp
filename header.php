@@ -10,12 +10,16 @@
         <li class="nav-item active">
             <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
         </li>
+
+        <?php if(@$_SESSION['loggedin']!=true){?>
         <li class="nav-item">
             <a class="nav-link" href="register.php">Register</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="login.php">Login</a>
         </li>
+        <?php }else{?>
+
         <li class="nav-item">
             <a class="nav-link" href="profile.php">Profile</a>
         </li>
@@ -30,6 +34,7 @@
         <li class="nav-item">
             <a class="nav-link" href="logout.php">Logout</a>
         </li>
+        <?php } ?>
         
         </ul>
         <form class="form-inline my-2 my-lg-0">

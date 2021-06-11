@@ -1,7 +1,9 @@
 <?php 
 
 session_start();
-
+if(isset($_SESSION['loggedin'])){
+    header("location:profile.php");
+}
 // echo md5("admin");
 require 'config.php';
 

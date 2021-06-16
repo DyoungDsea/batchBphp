@@ -1,8 +1,8 @@
 <?php 
 
 session_start();
-if(isset($_SESSION['loggedin'])){
-    header("location:profile.php");
+if(@$_SESSION['loggedin']!=true){
+    header("Location:login.php");
 }
 
 ?>
@@ -23,12 +23,12 @@ if(isset($_SESSION['loggedin'])){
 <div class="container mb-5" style="width: 600px;">
 
     
-    <form action="login-process.php" method="POST" class="mt-5">
+    <form action="change-password-process.php" method="POST" class="mt-5">
         
     <?php echo isset($_SESSION['error']) ?  $_SESSION['error']: ''; ?>
 
         <div class="form-group">
-            <input type="text" name="user" required placeholder="Username OR Email" class="form-control">
+            <input type="password" name="old" required placeholder="Current Password" class="form-control">
         </div>
 
         
@@ -36,8 +36,12 @@ if(isset($_SESSION['loggedin'])){
             <input type="password" required name="pass" placeholder="Password" class="form-control">
         </div>
 
+        <div class="form-group">
+            <input type="password" required name="cpass" placeholder="Confirm Password" class="form-control">
+        </div>
+
         
-        <button type="submit" name="login" class="btn btn-primary btn-block">Login</button>
+        <button type="submit" name="change" class="btn btn-primary btn-block">Change Password</button>
     </form>
 
 
